@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 from app.database.db import Base
-import app.models.user_management
+import app.models  # This will import all models including Sales models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
