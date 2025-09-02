@@ -1,4 +1,5 @@
 annotated-types==0.7.0
+alembic==1.14.0
 anyio==4.9.0
 bcrypt==4.0.1
 click==8.2.1
@@ -14,6 +15,7 @@ jose==1.0.0
 mysql==0.0.3
 mysqlclient==2.2.7
 passlib==1.7.4
+psycopg2-binary==2.9.9
 pyasn1==0.6.1
 pydantic==2.11.7
 pydantic_core==2.33.2
