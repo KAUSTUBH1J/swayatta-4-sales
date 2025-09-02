@@ -16,7 +16,7 @@ router = APIRouter()
 
 #---------- Helper Function for Consistent Error Handling ----------
 def handle_exception(e: Exception, msg: str, code: int = 500):
-    return ContactSchemas.SalesResponse(
+    return SalesResponse(
         message=f"{msg}: {str(e)}",
         status_code=code,
         data=None
