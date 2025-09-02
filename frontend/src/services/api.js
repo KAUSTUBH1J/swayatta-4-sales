@@ -2,9 +2,12 @@ import axios from 'axios';
 
 // Dynamic backend URL based on environment
 const getBackendUrl = () => {
-  // If we're in preview environment, use the preview backend
-  if (window.location.hostname.includes('emergentagent.com')) {
-    return window.location.origin; // Use same domain as frontend
+  const hostname = window.location.hostname;
+  
+  // If we're in preview environment, check if we can use localhost backend
+  if (hostname.includes('emergentagent.com')) {
+    // For preview, try to use the exposed backend on port 8001
+    return 'http://localhost:8001';
   }
   // Local development
   return 'http://localhost:8002';
@@ -13,6 +16,7 @@ const getBackendUrl = () => {
 const BACKEND_URL = getBackendUrl();
 const API_BASE = `${BACKEND_URL}/api`;
 
+console.log('Environment:', window.location.hostname);
 console.log('API Base URL:', API_BASE); // Debug log
 
 // Create axios instance with default configuration
