@@ -48,7 +48,7 @@ class MasterDataService {
 
   async getDropdown(entityName) {
     try {
-      const response = await api.get(`/v1/user_dropdowns/${entityName}`);
+      const response = await api.get(`/v1/dropdowns/${entityName}`);
       return response;
     } catch (error) {
       throw error.response?.data || { message: `Failed to fetch dropdown for ${entityName}` };
