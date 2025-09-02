@@ -93,7 +93,7 @@ def get_parent_companies(
         return handle_exception(e, "Error fetching parent companies", getattr(e, "status_code", 500))
 
 #---------- Fetch Single Company by ID ----------
-@router.get("/{company_id}", response_model=CompanySchemas.SalesResponse, dependencies=[check_permission(2, "/sales/companies", "view")], status_code=status.HTTP_200_OK)
+@router.get("/{company_id}", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/companies", "view")], status_code=status.HTTP_200_OK)
 def fetch_company(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     company_id: int,
