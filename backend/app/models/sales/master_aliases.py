@@ -16,7 +16,7 @@ from app.models.masters.master_industry_segment import MasterIndustrySegments as
 from app.models.user_management.region import Region
 
 # Address Types
-from app.models.masters.master_address_type import MasterAddressType as AddressType
+from app.models.masters.master_address_type import MasterAddresssTypes as AddressType
 
 # Countries
 from app.models.masters.master_countries import MasterCountries as Country
