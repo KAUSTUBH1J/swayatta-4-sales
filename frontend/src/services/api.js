@@ -4,10 +4,9 @@ import axios from 'axios';
 const getBackendUrl = () => {
   const hostname = window.location.hostname;
   
-  // If we're in preview environment, check if we can use localhost backend
+  // If we're in preview environment, use the same domain
   if (hostname.includes('emergentagent.com')) {
-    // For preview, try to use the exposed backend on port 8001
-    return 'http://localhost:8001';
+    return window.location.origin; // Use same domain as frontend
   }
   // Local development
   return 'http://localhost:8002';
