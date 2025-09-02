@@ -336,6 +336,75 @@ class BackendTester:
         print("- If frontend calls them WITHOUT trailing slashes, FastAPI returns 307 redirects")
         print("- Solution: Ensure frontend uses trailing slashes for these endpoints")
 
+    def test_307_redirect_investigation(self):
+        """Specific test to investigate 307 redirect issue reported by user"""
+        print("="*60)
+        print("SPECIFIC 307 REDIRECT INVESTIGATION")
+        print("="*60)
+        
+        if not self.token:
+            print("❌ No authentication token available - skipping redirect investigation")
+            return
+        
+        print("\n🔍 TESTING SPECIFIC ENDPOINTS REPORTED WITH 307 REDIRECTS:")
+        print("User reports these return 307 instead of 200:")
+        
+        # Test the exact endpoints mentioned in the review request
+        problematic_endpoints = [
+            "/api/v1/users/",
+            "/api/v1/roles/", 
+            "/api/v1/permissions/",
+            "/api/v1/departments/"
+        ]
+        
+        redirect_issues_found = []
+        
+        for endpoint in problematic_endpoints:
+            endpoint_name = endpoint.split('/')[-2].title()
+            
+            print(f"\n🔍 Testing {endpoint_name} endpoint: {endpoint}")
+            
+            # Test WITH trailing slash (correct way)
+            success_with_slash, _ = self.run_test(
+                f"{endpoint_name} WITH trailing slash",
+                "GET",
+                endpoint,
+                200,
+                allow_redirects=False  # Don't follow redirects to see actual response
+            )
+            
+            # Test WITHOUT trailing slash (potential issue)
+            endpoint_no_slash = endpoint.rstrip('/')
+            success_without_slash, _ = self.run_test(
+                f"{endpoint_name} WITHOUT trailing slash",
+                "GET", 
+                endpoint_no_slash,
+                200,  # We expect 200 but might get 307
+                allow_redirects=False  # Don't follow redirects to see actual response
+            )
+            
+            if not success_without_slash:
+                redirect_issues_found.append({
+                    'endpoint': endpoint_no_slash,
+                    'correct_endpoint': endpoint,
+                    'name': endpoint_name
+                })
+        
+        print(f"\n📊 307 REDIRECT INVESTIGATION RESULTS:")
+        if redirect_issues_found:
+            print(f"🚨 FOUND {len(redirect_issues_found)} ENDPOINTS WITH REDIRECT ISSUES:")
+            for issue in redirect_issues_found:
+                print(f"   ❌ {issue['name']}: {issue['endpoint']} → redirects to → {issue['correct_endpoint']}")
+            print(f"\n💡 ROOT CAUSE IDENTIFIED:")
+            print(f"   - Backend endpoints are defined WITH trailing slashes")
+            print(f"   - Frontend is likely calling them WITHOUT trailing slashes")
+            print(f"   - FastAPI automatically redirects with 307 status")
+            print(f"\n🔧 SOLUTION:")
+            print(f"   - Update frontend API calls to include trailing slashes")
+            print(f"   - OR update backend to accept both with/without trailing slashes")
+        else:
+            print("✅ No 307 redirect issues found - all endpoints working correctly")
+
     def test_master_data_dropdowns(self):
         """Test Master Data Dropdown endpoints as per review request"""
         print("="*60)
