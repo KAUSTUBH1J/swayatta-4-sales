@@ -170,6 +170,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ TESTED: All master data dropdown endpoints working correctly. Roles dropdown returns 3 items, Departments dropdown returns 4 items, Designations dropdown returns 4 items, Regions dropdown returns 4 items. All dropdowns have proper id/name format for frontend consumption."
+      - working: true
+        agent: "testing"
+        comment: "✅ RE-VERIFIED (2025-09-02): Master data dropdowns confirmed working. GET /api/v1/dropdowns/designations returns 4 designations for Contact form, GET /api/v1/dropdowns/regions returns 4 regions for Company form. All dropdowns return proper {id, name} format as expected. Fixed 404 API errors confirmed resolved."
 
 frontend:
   - task: "Login functionality"
