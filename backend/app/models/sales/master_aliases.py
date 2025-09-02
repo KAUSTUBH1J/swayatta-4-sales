@@ -10,7 +10,7 @@ from app.models.masters.master_account_sub_types import AccountSubType
 from app.models.masters.master_business_types import MasterBusinessTypes as BusinessType
 
 # Industry Segments  
-from app.models.masters.master_industry_segment import MasterIndustrySegment as IndustrySegment
+from app.models.masters.master_industry_segment import MasterIndustrySegments as IndustrySegment
 
 # Regions
 from app.models.user_management.region import Region
@@ -28,7 +28,7 @@ from app.models.masters.master_states import MasterStates as State
 from app.models.masters.master_cities import MasterCities as City
 
 # Document Types
-from app.models.masters.master_document_types import MasterDocumentTypes as DocumentType
+from app.models.masters.master_document_types import DocumentType
 
 # Currency
 from app.models.masters.master_currency import MasterCurrency as Currency
