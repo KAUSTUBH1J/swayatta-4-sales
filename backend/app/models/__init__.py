@@ -14,12 +14,12 @@ from app.models.user_management.region import Region
 from app.models.user_management.menu import Menu
 from app.models.user_management.module import Module
 
-# Master Models (using actual class names)
+# Master Models (using actual class names from files)
 from app.models.masters.master_account_types import MasterAccountTypes
 from app.models.masters.master_account_sub_types import AccountSubType
 from app.models.masters.master_business_types import MasterBusinessTypes
 from app.models.masters.master_industry_segment import MasterIndustrySegments
-from app.models.masters.master_address_type import MasterAddressType
+from app.models.masters.master_address_type import MasterAddresssTypes
 from app.models.masters.master_countries import MasterCountries
 from app.models.masters.master_states import MasterStates
 from app.models.masters.master_cities import MasterCities
