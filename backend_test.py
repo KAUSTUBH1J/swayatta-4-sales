@@ -402,28 +402,34 @@ class BackendTester:
             print("\n✅ No 404 errors detected")
 
 def main():
-    """Main test function"""
-    print("Starting Backend API Tests...")
+    """Main test function following review request requirements"""
+    print("Starting Sales Module Backend API Tests...")
     print(f"Testing against: https://erm-sales-portal.preview.emergentagent.com")
+    print(f"API Base: https://erm-sales-portal.preview.emergentagent.com/api")
+    print("\nAs per review request - Testing:")
+    print("1. Authentication endpoints (login, token verification)")
+    print("2. Sales Module APIs (Companies, Contacts, Parent Companies)")
+    print("3. User Management APIs (Users, Roles, Departments)")
+    print("4. Master Data Dropdowns")
+    print("5. Focus on 404 errors and response structure validation")
     
     tester = BackendTester()
     
-    # Test basic endpoints first
-    tester.test_basic_endpoints()
+    # Test basic connectivity first
+    tester.test_basic_connectivity()
     
-    # Test simple status endpoints (from server.py)
-    tester.test_status_endpoints()
+    # Test authentication endpoints (as per review request)
+    tester.test_authentication_endpoints()
     
-    # Test authentication
-    tester.test_auth_endpoints()
-    
-    # Test sales endpoints (if auth works)
+    # Test Sales Module endpoints (if auth works)
     if tester.token:
-        tester.test_sales_endpoints()
+        tester.test_sales_module_endpoints()
+        tester.test_user_management_endpoints()
+        tester.test_master_data_dropdowns()
     else:
-        print("\n⚠️  Skipping sales tests - No authentication token available")
+        print("\n⚠️  Skipping authenticated endpoint tests - No authentication token available")
     
-    # Print summary
+    # Print comprehensive summary
     tester.print_summary()
     
     return 0 if tester.tests_passed > 0 else 1
