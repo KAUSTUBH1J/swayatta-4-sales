@@ -76,7 +76,7 @@ class MasterDataService {
 
   // Roles
   async getRoles(params) {
-    return this.getList('v1/roles',params);
+    return this.getList('v1/roles/',params);
   }
 
   async createRole(data) {
