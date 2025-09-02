@@ -1,5 +1,3 @@
-<file>
-      <absolute_file_name>/app/backend/app/models/sales/master_aliases.py</absolute_file_name>
 # Alias imports to standardize master model naming for Sales module
 
 # Account Types
@@ -43,5 +41,3 @@ from app.models.user_management.designation import Designation
 
 # Users
 from app.models.user_management.user import User
-</content>
-    </file>
