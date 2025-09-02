@@ -488,9 +488,29 @@ COMPANIES_DATA = [
         "website": "https://acme.com",
         "is_child": False,
         "is_active": True,
+        "company_profile": "Leading technology company specializing in innovative solutions",
+        "industry_segment_id": 1,
+        "account_type_id": 1,
+        "account_region_id": 1,
         "created_at": "2025-09-02T08:26:02.937087",
-        "addresses": [],
-        "turnover_records": [],
+        "addresses": [
+            {
+                "id": 1,
+                "company_id": 1,
+                "address": "123 Tech Street, Silicon Valley, CA",
+                "zip_code": "94000",
+                "is_active": True
+            }
+        ],
+        "turnover_records": [
+            {
+                "id": 1,
+                "company_id": 1,
+                "year": 2023,
+                "revenue": "10000000.00",
+                "currency_id": 1
+            }
+        ],
         "profit_records": [],
         "documents": []
     },
@@ -502,6 +522,45 @@ COMPANIES_DATA = [
         "website": "https://beta.com",
         "is_child": False,
         "is_active": True,
+        "company_profile": "Manufacturing company with 50+ years of experience",
+        "industry_segment_id": 2,
+        "account_type_id": 1,
+        "account_region_id": 2,
+        "created_at": "2025-09-02T08:26:02.937087",
+        "addresses": [
+            {
+                "id": 2,
+                "company_id": 2,
+                "address": "456 Industrial Ave, Detroit, MI",
+                "zip_code": "48201",
+                "is_active": True
+            }
+        ],
+        "turnover_records": [
+            {
+                "id": 2,
+                "company_id": 2,
+                "year": 2023,
+                "revenue": "5000000.00",
+                "currency_id": 1
+            }
+        ],
+        "profit_records": [],
+        "documents": []
+    },
+    {
+        "id": 3,
+        "company_name": "Gamma Tech Solutions",
+        "gst_no": "27CCCCC2222C3X3",
+        "pan_no": "CCCCC2222C",
+        "website": "https://gamma.tech",
+        "is_child": True,
+        "parent_company_id": 1,
+        "is_active": True,
+        "company_profile": "Subsidiary focusing on AI and machine learning solutions",
+        "industry_segment_id": 1,
+        "account_type_id": 2,
+        "account_region_id": 3,
         "created_at": "2025-09-02T08:26:02.937087",
         "addresses": [],
         "turnover_records": [],
@@ -513,23 +572,72 @@ COMPANIES_DATA = [
 CONTACTS_DATA = [
     {
         "id": 1,
+        "title_id": 1,
         "first_name": "John",
+        "middle_name": "A",
         "last_name": "Doe",
         "email": "john.doe@acme.com",
         "primary_no": "+1234567890",
+        "secondary_no": "+1234567891",
         "company_id": 1,
+        "designation_id": 1,
         "is_active": True,
+        "dont_call": False,
+        "dont_email": False,
+        "dont_mail": False,
+        "dont_solicit": False,
+        "dont_fax": False,
+        "dob": "1985-05-15",
+        "created_at": "2025-09-02T08:26:02.937087",
+        "addresses": [
+            {
+                "id": 1,
+                "contact_id": 1,
+                "address": "123 Main St, Apartment 4B",
+                "zip_code": "10001",
+                "is_active": True
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title_id": 2,
+        "first_name": "Jane",
+        "middle_name": "",
+        "last_name": "Smith", 
+        "email": "jane.smith@beta.com",
+        "primary_no": "+9876543210",
+        "secondary_no": "",
+        "company_id": 2,
+        "designation_id": 2,
+        "is_active": True,
+        "dont_call": False,
+        "dont_email": False,
+        "dont_mail": True,
+        "dont_solicit": False,
+        "dont_fax": True,
+        "dob": "1990-08-22",
         "created_at": "2025-09-02T08:26:02.937087",
         "addresses": []
     },
     {
-        "id": 2,
-        "first_name": "Jane",
-        "last_name": "Smith", 
-        "email": "jane.smith@beta.com",
-        "primary_no": "+9876543210",
-        "company_id": 2,
+        "id": 3,
+        "title_id": 1,
+        "first_name": "Michael",
+        "middle_name": "R",
+        "last_name": "Johnson",
+        "email": "michael.johnson@gamma.tech",
+        "primary_no": "+1555123456",
+        "secondary_no": "+1555123457",
+        "company_id": 3,
+        "designation_id": 3,
         "is_active": True,
+        "dont_call": False,
+        "dont_email": False,
+        "dont_mail": False,
+        "dont_solicit": False,
+        "dont_fax": False,
+        "dob": "1988-12-10",
         "created_at": "2025-09-02T08:26:02.937087",
         "addresses": []
     }
