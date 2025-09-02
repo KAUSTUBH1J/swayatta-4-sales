@@ -12,7 +12,7 @@ class SalesService {
         }
       });
 
-      const response = await api.get(`/v1/sales/${endpoint}?${queryParams.toString()}`);
+      const response = await api.get(`/v1/sales/${endpoint}/`);
       return response.data;
     } catch (error) {
       throw error.response?.data || { message: `Failed to fetch ${endpoint}` };
