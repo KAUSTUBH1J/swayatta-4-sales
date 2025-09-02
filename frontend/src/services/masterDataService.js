@@ -97,7 +97,7 @@ class MasterDataService {
   }
 
   async createPermission(data) {
-    return this.create('v1/permissions', data);
+    return this.create('v1/permissions/', data);
   }
 
   async updatePermission(id, data) {
