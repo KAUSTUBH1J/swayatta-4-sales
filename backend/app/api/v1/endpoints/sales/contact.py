@@ -77,7 +77,7 @@ def export_contacts(
         return handle_exception(e, "Contact export failed", getattr(e, "status_code", 500))
 
 #---------- Get Contacts by Company ----------
-@router.get("/by-company/{company_id}", response_model=ContactSchemas.SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "view")], status_code=status.HTTP_200_OK)
+@router.get("/by-company/{company_id}", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "view")], status_code=status.HTTP_200_OK)
 def get_contacts_by_company(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     company_id: int,
