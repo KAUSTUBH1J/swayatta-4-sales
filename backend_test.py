@@ -517,6 +517,9 @@ def main():
         tester.test_sales_module_endpoints()
         tester.test_user_management_endpoints()
         tester.test_master_data_dropdowns()
+        
+        # Specific investigation for 307 redirect issue
+        tester.test_307_redirect_investigation()
     else:
         print("\n⚠️  Skipping authenticated endpoint tests - No authentication token available")
     
