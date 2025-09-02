@@ -88,6 +88,200 @@ VALID_USERS = {
 
 ACTIVE_TOKENS = {}  # Token storage
 
+# ===== DUMMY DATA FOR ALL MODULES =====
+
+# Users dummy data
+USERS_DATA = [
+    {
+        "id": 1,
+        "username": "admin",
+        "full_name": "Admin User",
+        "email": "admin@example.com",
+        "role_id": 1,
+        "department_id": 1,
+        "designation_id": 1,
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 2,
+        "username": "manager",
+        "full_name": "Manager User",
+        "email": "manager@example.com",
+        "role_id": 2,
+        "department_id": 2,
+        "designation_id": 2,
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 3,
+        "username": "employee",
+        "full_name": "Employee User",
+        "email": "employee@example.com",
+        "role_id": 3,
+        "department_id": 1,
+        "designation_id": 3,
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    }
+]
+
+# Roles dummy data
+ROLES_DATA = [
+    {
+        "id": 1,
+        "name": "Super Admin",
+        "description": "Full system access",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 2,
+        "name": "Manager",
+        "description": "Department manager access",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 3,
+        "name": "Employee",
+        "description": "Basic employee access",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    }
+]
+
+# Permissions dummy data
+PERMISSIONS_DATA = [
+    {"id": 1, "name": "view", "description": "View records", "is_active": True},
+    {"id": 2, "name": "create", "description": "Create records", "is_active": True},
+    {"id": 3, "name": "edit", "description": "Edit records", "is_active": True},
+    {"id": 4, "name": "delete", "description": "Delete records", "is_active": True},
+    {"id": 5, "name": "export", "description": "Export data", "is_active": True}
+]
+
+# Departments dummy data
+DEPARTMENTS_DATA = [
+    {
+        "id": 1,
+        "name": "Information Technology",
+        "description": "IT Department",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 2,
+        "name": "Human Resources",
+        "description": "HR Department",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 3,
+        "name": "Sales",
+        "description": "Sales Department",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 4,
+        "name": "Marketing",
+        "description": "Marketing Department",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    }
+]
+
+# Designations dummy data
+DESIGNATIONS_DATA = [
+    {
+        "id": 1,
+        "name": "System Administrator",
+        "description": "System Admin",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 2,
+        "name": "Department Manager",
+        "description": "Manager",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 3,
+        "name": "Senior Developer",
+        "description": "Senior Developer",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 4,
+        "name": "Sales Executive",
+        "description": "Sales Executive",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    }
+]
+
+# Business Verticals dummy data
+BUSINESS_VERTICALS_DATA = [
+    {
+        "id": 1,
+        "name": "Technology",
+        "description": "Technology services",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 2,
+        "name": "Healthcare",
+        "description": "Healthcare services",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 3,
+        "name": "Finance",
+        "description": "Financial services",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    }
+]
+
+# Regions dummy data
+REGIONS_DATA = [
+    {
+        "id": 1,
+        "name": "North America",
+        "description": "North American region",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 2,
+        "name": "Europe",
+        "description": "European region",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 3,
+        "name": "Asia Pacific",
+        "description": "Asia Pacific region",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    },
+    {
+        "id": 4,
+        "name": "India",
+        "description": "India region",
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087"
+    }
+]
+
 
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
