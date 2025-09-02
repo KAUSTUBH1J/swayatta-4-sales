@@ -72,7 +72,7 @@ def export_contacts(
     try:
         contacts = db.query(Contact).filter(Contact.is_deleted == False).all()
         contact_list = [ContactSchemas.ContactExportOut.from_orm(contact) for contact in contacts]
-        return export_to_csv(contact_list, ContactExportOut, filename="contacts.csv")
+        return export_to_csv(contact_list, ContactSchemas.ContactExportOut, filename="contacts.csv")
     except Exception as e:
         return handle_exception(e, "Contact export failed", getattr(e, "status_code", 500))
 
