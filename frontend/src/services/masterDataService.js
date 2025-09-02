@@ -93,7 +93,7 @@ class MasterDataService {
 
   // Permissions
   async getPermissions(params) {
-    return this.getList('v1/permissions', params);
+    return this.getList('v1/permissions/', params);
   }
 
   async createPermission(data) {
