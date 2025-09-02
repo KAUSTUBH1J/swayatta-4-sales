@@ -339,6 +339,143 @@ async def verify_token_endpoint(user_data: dict = Depends(verify_token)):
         }
     }
 
+# ===== USER MANAGEMENT ENDPOINTS =====
+
+@api_router.get("/v1/users/")
+async def list_users(user_data: dict = Depends(verify_token)):
+    """List users"""
+    return {
+        "status_code": 200,
+        "message": "Users fetched successfully",
+        "data": {
+            "users": USERS_DATA,
+            "total": len(USERS_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+@api_router.get("/v1/roles/")
+async def list_roles(user_data: dict = Depends(verify_token)):
+    """List roles"""
+    return {
+        "status_code": 200,
+        "message": "Roles fetched successfully",
+        "data": {
+            "roles": ROLES_DATA,
+            "total": len(ROLES_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+@api_router.get("/v1/permissions/")
+async def list_permissions(user_data: dict = Depends(verify_token)):
+    """List permissions"""
+    return {
+        "status_code": 200,
+        "message": "Permissions fetched successfully",
+        "data": {
+            "permissions": PERMISSIONS_DATA,
+            "total": len(PERMISSIONS_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+@api_router.get("/v1/departments/")
+async def list_departments(user_data: dict = Depends(verify_token)):
+    """List departments"""
+    return {
+        "status_code": 200,
+        "message": "Departments fetched successfully",
+        "data": {
+            "departments": DEPARTMENTS_DATA,
+            "total": len(DEPARTMENTS_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+@api_router.get("/v1/designations/")
+async def list_designations(user_data: dict = Depends(verify_token)):
+    """List designations"""
+    return {
+        "status_code": 200,
+        "message": "Designations fetched successfully",
+        "data": {
+            "designations": DESIGNATIONS_DATA,
+            "total": len(DESIGNATIONS_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+@api_router.get("/v1/business-verticals/")
+async def list_business_verticals(user_data: dict = Depends(verify_token)):
+    """List business verticals"""
+    return {
+        "status_code": 200,
+        "message": "Business verticals fetched successfully",
+        "data": {
+            "business_verticals": BUSINESS_VERTICALS_DATA,
+            "total": len(BUSINESS_VERTICALS_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+@api_router.get("/v1/regions/")
+async def list_regions(user_data: dict = Depends(verify_token)):
+    """List regions"""
+    return {
+        "status_code": 200,
+        "message": "Regions fetched successfully",
+        "data": {
+            "regions": REGIONS_DATA,
+            "total": len(REGIONS_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+# Dropdown endpoints for master data
+@api_router.get("/v1/dropdowns/roles")
+async def get_roles_dropdown(user_data: dict = Depends(verify_token)):
+    """Get roles dropdown"""
+    return {
+        "status_code": 200,
+        "message": "Roles dropdown fetched successfully",
+        "data": [{"id": role["id"], "name": role["name"]} for role in ROLES_DATA]
+    }
+
+@api_router.get("/v1/dropdowns/departments")
+async def get_departments_dropdown(user_data: dict = Depends(verify_token)):
+    """Get departments dropdown"""
+    return {
+        "status_code": 200,
+        "message": "Departments dropdown fetched successfully",
+        "data": [{"id": dept["id"], "name": dept["name"]} for dept in DEPARTMENTS_DATA]
+    }
+
+@api_router.get("/v1/dropdowns/designations")
+async def get_designations_dropdown(user_data: dict = Depends(verify_token)):
+    """Get designations dropdown"""
+    return {
+        "status_code": 200,
+        "message": "Designations dropdown fetched successfully",
+        "data": [{"id": desig["id"], "name": desig["name"]} for desig in DESIGNATIONS_DATA]
+    }
+
+@api_router.get("/v1/dropdowns/regions")
+async def get_regions_dropdown(user_data: dict = Depends(verify_token)):
+    """Get regions dropdown"""
+    return {
+        "status_code": 200,
+        "message": "Regions dropdown fetched successfully",
+        "data": [{"id": region["id"], "name": region["name"]} for region in REGIONS_DATA]
+    }
+
 # ===== SALES ENDPOINTS =====
 
 # Sample data
