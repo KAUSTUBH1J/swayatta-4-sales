@@ -59,7 +59,7 @@ class MasterDataService {
   // Specific methods for different entities
   // Users
   async getUsers(params) {
-    return this.getList('v1/users', params);
+    return this.getList('v1/users/', params);
   }
 
   async createUser(data) {
