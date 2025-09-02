@@ -69,6 +69,7 @@ VALID_USERS = {
                             "id": 101,
                             "name": "Companies",
                             "path": "/sales/companies",
+                            "is_sidebar": True,
                             "permissions": ["view", "create", "edit", "delete"],
                             "children": []
                         },
@@ -76,6 +77,7 @@ VALID_USERS = {
                             "id": 102,
                             "name": "Contacts",
                             "path": "/sales/contacts",
+                            "is_sidebar": True,
                             "permissions": ["view", "create", "edit", "delete"],
                             "children": []
                         }
