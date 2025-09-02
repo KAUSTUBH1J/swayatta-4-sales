@@ -33,6 +33,9 @@ import CompanyTypesPage from './pages/CompanyTypes';
 
 // Business Pages
 import IndustrySegmentsPage from './pages/IndustrySegments';
+// Sales Pages
+import CompaniesPage from './pages/sales/CompaniesPage';
+import ContactsPage from './pages/sales/ContactsPage';
 
 import './App.css';
 import MenusPage from './pages/MenusPage';
