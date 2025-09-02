@@ -141,11 +141,14 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Sales endpoints added with dummy data for companies and contacts"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: All Sales endpoints working perfectly. Companies endpoint returns 3 companies with addresses, turnover_records, and profit_records. Contacts endpoint returns 3 contacts with addresses and company associations. Parent companies dropdown returns proper id/name format for 3 companies. All data structures match expected format."
 
   - task: "Master data dropdown endpoints"
     implemented: true
