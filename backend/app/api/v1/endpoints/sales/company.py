@@ -77,7 +77,7 @@ def export_companies(
         return handle_exception(e, "Company export failed", getattr(e, "status_code", 500))
 
 #---------- Get Parent Companies for Dropdown ----------
-@router.get("/parent-companies", response_model=CompanySchemas.SalesResponse, dependencies=[check_permission(2, "/sales/companies", "view")], status_code=status.HTTP_200_OK)
+@router.get("/parent-companies", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/companies", "view")], status_code=status.HTTP_200_OK)
 def get_parent_companies(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     db: Session = Depends(get_db)
