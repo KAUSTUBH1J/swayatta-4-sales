@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// Force localhost for testing - override environment variable
+const BACKEND_URL = 'http://localhost:8002';
 const API_BASE = `${BACKEND_URL}/api`;
 
 // Create axios instance with default configuration
