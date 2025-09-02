@@ -257,62 +257,74 @@ class BackendTester:
                 print("❌ Response missing data field")
 
     def test_user_management_endpoints(self):
-        """Test User Management API endpoints as per review request"""
+        """Test User Management API endpoints as per review request - Focus on 307 redirect issue"""
         print("="*60)
-        print("TESTING USER MANAGEMENT ENDPOINTS")
+        print("TESTING USER MANAGEMENT ENDPOINTS - 307 REDIRECT INVESTIGATION")
         print("="*60)
         
         if not self.token:
             print("❌ No authentication token available - skipping user management tests")
             return
         
-        # 6. Test Users endpoint: GET /api/v1/users/
-        print("\n6. Testing Users Endpoint")
-        success, response = self.run_test(
-            "List Users", 
-            "GET", 
-            "/api/v1/users/", 
-            200
-        )
+        # Test endpoints that are reportedly returning 307 redirects
+        user_mgmt_endpoints = [
+            ("/api/v1/users/", "Users List"),
+            ("/api/v1/roles/", "Roles List"), 
+            ("/api/v1/permissions/", "Permissions List"),
+            ("/api/v1/departments/", "Departments List")
+        ]
         
-        if success and response:
-            users_data = response.get('data', {})
-            if 'users' in users_data:
-                print(f"✅ Found {len(users_data['users'])} users")
-            else:
-                print("❌ Response missing users data")
+        print("\n🔍 INVESTIGATING 307 REDIRECT ISSUE:")
+        print("User reports these endpoints return 307 Temporary Redirect instead of 200")
         
-        # 7. Test Roles endpoint: GET /api/v1/roles/
-        print("\n7. Testing Roles Endpoint")
-        success, response = self.run_test(
-            "List Roles", 
-            "GET", 
-            "/api/v1/roles/", 
-            200
-        )
+        for endpoint, name in user_mgmt_endpoints:
+            print(f"\n6. Testing {name} - {endpoint}")
+            
+            # Test WITH trailing slash (as defined in backend)
+            success, response = self.run_test(
+                f"{name} (with trailing slash)", 
+                "GET", 
+                endpoint, 
+                200
+            )
+            
+            if success and response:
+                data_key = name.lower().replace(' list', '').replace(' ', '_')
+                if data_key == 'users':
+                    data_key = 'users'
+                elif data_key == 'roles':
+                    data_key = 'roles'
+                elif data_key == 'permissions':
+                    data_key = 'permissions'
+                elif data_key == 'departments':
+                    data_key = 'departments'
+                
+                endpoint_data = response.get('data', {})
+                if data_key in endpoint_data:
+                    print(f"✅ Found {len(endpoint_data[data_key])} {data_key}")
+                else:
+                    print(f"❌ Response missing {data_key} data")
+            
+            # Test WITHOUT trailing slash to check for redirects
+            endpoint_no_slash = endpoint.rstrip('/')
+            if endpoint_no_slash != endpoint:
+                print(f"\n   Testing {name} WITHOUT trailing slash - {endpoint_no_slash}")
+                success_no_slash, response_no_slash = self.run_test(
+                    f"{name} (without trailing slash)", 
+                    "GET", 
+                    endpoint_no_slash, 
+                    200  # We expect 200, but might get 307
+                )
+                
+                if not success_no_slash:
+                    print(f"⚠️  WARNING: {name} without trailing slash may be causing 307 redirects")
+                    print(f"   Frontend should call: {endpoint} (WITH trailing slash)")
+                    print(f"   NOT: {endpoint_no_slash} (without trailing slash)")
         
-        if success and response:
-            roles_data = response.get('data', {})
-            if 'roles' in roles_data:
-                print(f"✅ Found {len(roles_data['roles'])} roles")
-            else:
-                print("❌ Response missing roles data")
-        
-        # 8. Test Departments endpoint: GET /api/v1/departments/
-        print("\n8. Testing Departments Endpoint")
-        success, response = self.run_test(
-            "List Departments", 
-            "GET", 
-            "/api/v1/departments/", 
-            200
-        )
-        
-        if success and response:
-            departments_data = response.get('data', {})
-            if 'departments' in departments_data:
-                print(f"✅ Found {len(departments_data['departments'])} departments")
-            else:
-                print("❌ Response missing departments data")
+        print(f"\n📋 SUMMARY OF USER MANAGEMENT API INVESTIGATION:")
+        print("- All User Management endpoints are defined WITH trailing slashes in backend")
+        print("- If frontend calls them WITHOUT trailing slashes, FastAPI returns 307 redirects")
+        print("- Solution: Ensure frontend uses trailing slashes for these endpoints")
 
     def test_master_data_dropdowns(self):
         """Test Master Data Dropdown endpoints as per review request"""
