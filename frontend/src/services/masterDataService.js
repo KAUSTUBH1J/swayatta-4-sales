@@ -110,7 +110,7 @@ class MasterDataService {
 
   // Departments
   async getDepartments(params) {
-    return this.getList('v1/departments', params);
+    return this.getList('v1/departments/', params);
   }
 
   async createDepartment(data) {
