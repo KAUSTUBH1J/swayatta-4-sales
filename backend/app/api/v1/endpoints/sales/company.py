@@ -41,7 +41,7 @@ def create_company(
         return handle_exception(e, "Company creation failed", getattr(e, "status_code", 400))
 
 #---------- List Companies ----------
-@router.get("/", response_model=CompanySchemas.SalesResponse, dependencies=[check_permission(2, "/sales/companies", "view")], status_code=status.HTTP_200_OK)
+@router.get("/", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/companies", "view")], status_code=status.HTTP_200_OK)
 def list_companies(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     db: Session = Depends(get_db),
