@@ -203,16 +203,16 @@ frontend:
         comment: "Sales pages exist but need to verify navigation and data loading"
 
   - task: "Multi-step progress bars in forms"
-    implemented: false
-    working: false
+    implemented: true
+    working: "needs_verification"
     file: "/app/frontend/src/pages/sales/components/"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: false
+      - working: "needs_verification"
         agent: "main"
-        comment: "User requested multi-step progress bars for Company and Contact forms - not yet implemented"
+        comment: "Implemented multi-step progress bars for both Company and Contact forms with step validation, progress indicators, and Next/Previous navigation"
 
 metadata:
   created_by: "main_agent"
