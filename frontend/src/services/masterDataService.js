@@ -63,7 +63,7 @@ class MasterDataService {
   }
 
   async createUser(data) {
-    return this.create('v1/users', data);
+    return this.create('v1/users/', data);
   }
 
   async updateUser(id, data) {
