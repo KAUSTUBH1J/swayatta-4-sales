@@ -149,6 +149,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ TESTED: All Sales endpoints working perfectly. Companies endpoint returns 3 companies with addresses, turnover_records, and profit_records. Contacts endpoint returns 3 contacts with addresses and company associations. Parent companies dropdown returns proper id/name format for 3 companies. All data structures match expected format."
+      - working: true
+        agent: "testing"
+        comment: "✅ RE-VERIFIED (2025-09-02): Sales module backend APIs confirmed working after recent fixes. GET /api/v1/sales/companies/ returns 3 companies with proper data structure including addresses, turnover_records, profit_records. GET /api/v1/sales/contacts/ returns 3 contacts with addresses and company associations. All endpoints accessible via production URL with no 404 errors."
 
   - task: "Master data dropdown endpoints"
     implemented: true
