@@ -144,7 +144,7 @@ class MasterDataService {
 
   // Business Verticals
   async getBusinessVerticals(params) {
-    return this.getList('v1/business_verticals', params);
+    return this.getList('v1/business_verticals/', params);
   }
 
   async createBusinessVertical(data) {
