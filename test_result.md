@@ -224,16 +224,19 @@ frontend:
         comment: "ISSUES IDENTIFIED BY USER: 1) Sidebar menu not expanding to show Companies/Contacts submenus 2) Financial Information Next button submits form instead of going to next step 3) Document section missing actual file upload fields 4) Company creation does work"
 
   - task: "User Management API 307 redirect issue"
-    implemented: false
+    implemented: true
     working: false
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "User reports User Management APIs returning 307 Temporary Redirect instead of 200, causing no data to display in User Management pages"
+      - working: false
+        agent: "testing"
+        comment: "🚨 ROOT CAUSE IDENTIFIED: Backend endpoints are defined WITH trailing slashes (/api/v1/users/, /api/v1/roles/, /api/v1/permissions/, /api/v1/departments/) but frontend is calling them WITHOUT trailing slashes (/api/v1/users, /api/v1/roles, etc.). FastAPI automatically redirects with 307 status when trailing slash is missing. All endpoints work correctly WITH trailing slashes (return 200). Solution: Update frontend API calls to include trailing slashes OR modify backend to accept both formats."
 
 metadata:
   created_by: "main_agent"
