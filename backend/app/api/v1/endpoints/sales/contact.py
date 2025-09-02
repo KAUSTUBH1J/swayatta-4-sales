@@ -23,7 +23,7 @@ def handle_exception(e: Exception, msg: str, code: int = 500):
     )
 
 #---------- Create Contact ----------
-@router.post("/", response_model=ContactSchemas.SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "create")], status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "create")], status_code=status.HTTP_201_CREATED)
 def create_contact(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     contact: ContactSchemas.ContactCreate,
