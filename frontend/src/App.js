@@ -37,6 +37,9 @@ import IndustrySegmentsPage from './pages/IndustrySegments';
 import CompaniesPage from './pages/sales/CompaniesPage';
 import ContactsPage from './pages/sales/ContactsPage';
 
+// Test Page
+import TestLogin from './pages/TestLogin';
+
 import './App.css';
 import MenusPage from './pages/MenusPage';
 
