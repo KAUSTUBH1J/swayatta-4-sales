@@ -80,7 +80,7 @@ class MasterDataService {
   }
 
   async createRole(data) {
-    return this.create('v1/roles', data);
+    return this.create('v1/roles/', data);
   }
 
   async updateRole(id, data) {
