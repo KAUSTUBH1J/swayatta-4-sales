@@ -113,10 +113,152 @@ async def create_status_check(input: StatusCheckCreate):
     _ = await db.status_checks.insert_one(status_obj.dict())
     return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    status_checks = await db.status_checks.find().to_list(1000)
-    return [StatusCheck(**status_check) for status_check in status_checks]
+@api_router.get("/status")
+async def status():
+    return {"status": "OK", "message": "Sales API is running", "timestamp": datetime.utcnow().isoformat()}
+
+# ===== AUTHENTICATION ENDPOINTS =====
+
+@api_router.post("/v1/auth/token")
+async def login(username: str = Form(...), password: str = Form(...)):
+    """Login endpoint"""
+    if username not in VALID_USERS or VALID_USERS[username]["password"] != password:
+        raise HTTPException(
+            status_code=401, 
+            detail={
+                "status_code": 401,
+                "message": "Invalid credentials",
+                "data": None
+            }
+        )
+    
+    # Generate token
+    token = f"token_{username}_{len(ACTIVE_TOKENS) + 1}"
+    ACTIVE_TOKENS[token] = VALID_USERS[username]["user_data"]
+    
+    return {
+        "status_code": 200,
+        "message": "Login successful",
+        "data": {
+            "access_token": token,
+            "token_type": "bearer",
+            "user": VALID_USERS[username]["user_data"]
+        }
+    }
+
+def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """Verify JWT token"""
+    token = credentials.credentials
+    if token not in ACTIVE_TOKENS:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+    return ACTIVE_TOKENS[token]
+
+@api_router.get("/v1/auth/verify-token/")
+async def verify_token_endpoint(user_data: dict = Depends(verify_token)):
+    """Verify token endpoint"""
+    return {
+        "status_code": 200,
+        "message": "Token Verified Successfully",
+        "data": {
+            "user": user_data
+        }
+    }
+
+# ===== SALES ENDPOINTS =====
+
+# Sample data
+COMPANIES_DATA = [
+    {
+        "id": 1,
+        "company_name": "Acme Corporation",
+        "gst_no": "27AAAAA0000A1Z5",
+        "pan_no": "AAAAA0000A",
+        "website": "https://acme.com",
+        "is_child": False,
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087",
+        "addresses": [],
+        "turnover_records": [],
+        "profit_records": [],
+        "documents": []
+    },
+    {
+        "id": 2,
+        "company_name": "Beta Industries", 
+        "gst_no": "27BBBBB1111B2Y4",
+        "pan_no": "BBBBB1111B",
+        "website": "https://beta.com",
+        "is_child": False,
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087",
+        "addresses": [],
+        "turnover_records": [],
+        "profit_records": [],
+        "documents": []
+    }
+]
+
+CONTACTS_DATA = [
+    {
+        "id": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@acme.com",
+        "primary_no": "+1234567890",
+        "company_id": 1,
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087",
+        "addresses": []
+    },
+    {
+        "id": 2,
+        "first_name": "Jane",
+        "last_name": "Smith", 
+        "email": "jane.smith@beta.com",
+        "primary_no": "+9876543210",
+        "company_id": 2,
+        "is_active": True,
+        "created_at": "2025-09-02T08:26:02.937087",
+        "addresses": []
+    }
+]
+
+@api_router.get("/v1/sales/companies/")
+async def list_companies(user_data: dict = Depends(verify_token)):
+    """List companies"""
+    return {
+        "status_code": 200,
+        "message": "Companies fetched successfully",
+        "data": {
+            "companies": COMPANIES_DATA,
+            "total": len(COMPANIES_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+@api_router.get("/v1/sales/contacts/")
+async def list_contacts(user_data: dict = Depends(verify_token)):
+    """List contacts"""
+    return {
+        "status_code": 200,
+        "message": "Contacts fetched successfully", 
+        "data": {
+            "contacts": CONTACTS_DATA,
+            "total": len(CONTACTS_DATA),
+            "page": 1,
+            "limit": 10
+        }
+    }
+
+@api_router.get("/v1/sales/companies/parent-companies")
+async def get_parent_companies(user_data: dict = Depends(verify_token)):
+    """Get parent companies dropdown"""
+    return {
+        "status_code": 200,
+        "message": "Parent companies fetched successfully",
+        "data": [{"id": c["id"], "name": c["company_name"]} for c in COMPANIES_DATA]
+    }
 
 # Include the router in the main app
 app.include_router(api_router)
