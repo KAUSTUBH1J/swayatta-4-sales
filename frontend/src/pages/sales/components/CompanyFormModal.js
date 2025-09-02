@@ -576,25 +576,54 @@ const CompanyFormModal = ({
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                          File Name
+                          Upload Document
                         </label>
                         <input
-                          type="text"
-                          value={document.file_name}
-                          onChange={(e) => handleArrayUpdate('documents', index, 'file_name', e.target.value)}
+                          type="file"
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                              handleArrayUpdate('documents', index, 'file_name', file.name);
+                              handleArrayUpdate('documents', index, 'file', file);
+                            }
+                          }}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                         />
+                        {document.file_name && (
+                          <p className="mt-1 text-sm text-gray-500">Selected: {document.file_name}</p>
+                        )}
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          Document Type
+                        </label>
+                        <select
+                          value={document.document_type || ''}
+                          onChange={(e) => handleArrayUpdate('documents', index, 'document_type', e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        >
+                          <option value="">Select Document Type</option>
+                          <option value="incorporation_certificate">Incorporation Certificate</option>
+                          <option value="gst_certificate">GST Certificate</option>
+                          <option value="pan_card">PAN Card</option>
+                          <option value="bank_statement">Bank Statement</option>
+                          <option value="financial_statement">Financial Statement</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                           Description
                         </label>
-                        <input
-                          type="text"
+                        <textarea
                           value={document.description}
                           onChange={(e) => handleArrayUpdate('documents', index, 'description', e.target.value)}
+                          rows={2}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          placeholder="Brief description of the document..."
                         />
                       </div>
                     </div>
