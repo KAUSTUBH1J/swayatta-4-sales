@@ -225,6 +225,7 @@ test_plan:
     - "Backend API endpoints verification"
     - "Sales module navigation and data loading"
     - "Multi-step progress bars implementation"
+    - "Frontend Contact form designations dropdown fix"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
