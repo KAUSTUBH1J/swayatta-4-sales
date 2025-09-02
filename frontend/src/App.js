@@ -270,6 +270,9 @@ function AppRoutes() {
         }
       />
 
+      {/* Test Route */}
+      <Route path="/test-login" element={<TestLogin />} />
+
       {/* Sales Routes */}
       <Route
         path="/sales/companies"
