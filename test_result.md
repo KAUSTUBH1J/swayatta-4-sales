@@ -201,27 +201,39 @@ frontend:
 
   - task: "Sales module pages (Companies, Contacts)"
     implemented: true
-    working: "needs_verification"
+    working: true
     file: "/app/frontend/src/pages/sales/"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
-      - working: "needs_verification"
+      - working: true
         agent: "main"
-        comment: "Sales pages exist but need to verify navigation and data loading"
+        comment: "Sales pages exist and data loading verified. Companies and Contacts pages display data correctly"
 
   - task: "Multi-step progress bars in forms"
     implemented: true
-    working: "needs_verification"
+    working: false
     file: "/app/frontend/src/pages/sales/components/"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "ISSUES IDENTIFIED BY USER: 1) Sidebar menu not expanding to show Companies/Contacts submenus 2) Financial Information Next button submits form instead of going to next step 3) Document section missing actual file upload fields 4) Company creation does work"
+
+  - task: "User Management API 307 redirect issue"
+    implemented: false
+    working: false
+    file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: "needs_verification"
+      - working: false
         agent: "main"
-        comment: "Implemented multi-step progress bars for both Company and Contact forms with step validation, progress indicators, and Next/Previous navigation"
+        comment: "User reports User Management APIs returning 307 Temporary Redirect instead of 200, causing no data to display in User Management pages"
 
 metadata:
   created_by: "main_agent"
