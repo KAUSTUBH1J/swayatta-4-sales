@@ -63,7 +63,11 @@ api_router.include_router(master_countries.router, prefix="/countries", tags=["C
 api_router.include_router(master_state.router, prefix="/states", tags=["State"])
 api_router.include_router(master_cities.router, prefix="/cities", tags=["City"])
 api_router.include_router(master_cities.router, prefix="/document_types", tags=["Document"])
-api_router.include_router(master_currency.router, prefix="/document_types", tags=["Document"])
+api_router.include_router(master_currency.router, prefix="/currencies", tags=["Currency"])
+
+# Sales module routes
+api_router.include_router(company.router, prefix="/sales/companies", tags=["Companies"])
+api_router.include_router(contact.router, prefix="/sales/contacts", tags=["Contacts"])
 
 
 
