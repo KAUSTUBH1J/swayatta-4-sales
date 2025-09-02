@@ -491,6 +491,21 @@ class BackendTester:
                 print(f"  - {test['name']}: {test['url']}")
         else:
             print("\n✅ No 404 errors detected")
+        
+        # Check for 307 redirect errors specifically (as per review request)
+        redirect_errors = [test for test in self.failed_tests if test.get('actual') == 307]
+        if redirect_errors:
+            print(f"\n🔄 307 REDIRECT ISSUES FOUND ({len(redirect_errors)} endpoints):")
+            for test in redirect_errors:
+                print(f"  - {test['name']}: {test['url']}")
+                if test.get('redirect_location'):
+                    print(f"    Redirects to: {test['redirect_location']}")
+            print(f"\n💡 307 REDIRECT SOLUTION:")
+            print(f"  - These are caused by trailing slash mismatches")
+            print(f"  - Frontend should call endpoints WITH trailing slashes")
+            print(f"  - Backend endpoints are defined with trailing slashes")
+        else:
+            print("\n✅ No 307 redirect issues detected")
 
 def main():
     """Main test function following review request requirements"""
