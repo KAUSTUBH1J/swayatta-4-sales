@@ -19,7 +19,7 @@ class BackendTester:
         self.token = None
         self.failed_tests = []
 
-    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None, use_form_data=False):
+    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None, use_form_data=False, allow_redirects=True):
         """Run a single API test"""
         url = f"{self.base_url}{endpoint}"
         if not headers:
@@ -36,18 +36,25 @@ class BackendTester:
             if method == 'GET':
                 if self.token:
                     headers['Authorization'] = f'Bearer {self.token}'
-                response = requests.get(url, headers=headers, timeout=10)
+                response = requests.get(url, headers=headers, timeout=10, allow_redirects=allow_redirects)
             elif method == 'POST':
                 if use_form_data:
                     # For form data (login endpoint)
-                    response = requests.post(url, data=data, headers=headers, timeout=10)
+                    response = requests.post(url, data=data, headers=headers, timeout=10, allow_redirects=allow_redirects)
                 else:
                     headers['Content-Type'] = 'application/json'
                     if self.token:
                         headers['Authorization'] = f'Bearer {self.token}'
-                    response = requests.post(url, json=data, headers=headers, timeout=10)
+                    response = requests.post(url, json=data, headers=headers, timeout=10, allow_redirects=allow_redirects)
 
             print(f"Status Code: {response.status_code}")
+            
+            # Special handling for 307 redirects
+            if response.status_code == 307:
+                print(f"🔄 307 TEMPORARY REDIRECT DETECTED!")
+                if 'Location' in response.headers:
+                    print(f"   Redirect Location: {response.headers['Location']}")
+                print(f"   This is likely caused by trailing slash mismatch")
             
             # Handle different response types
             try:
@@ -63,11 +70,14 @@ class BackendTester:
                 print(f"✅ Passed - Expected {expected_status}, got {response.status_code}")
             else:
                 print(f"❌ Failed - Expected {expected_status}, got {response.status_code}")
+                if response.status_code == 307:
+                    print(f"   🚨 307 REDIRECT ISSUE: Frontend likely calling without trailing slash")
                 self.failed_tests.append({
                     'name': name,
                     'expected': expected_status,
                     'actual': response.status_code,
-                    'url': url
+                    'url': url,
+                    'redirect_location': response.headers.get('Location', 'N/A') if response.status_code == 307 else None
                 })
 
             return success, response_data
