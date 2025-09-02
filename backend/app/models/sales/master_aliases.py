@@ -1,6 +1,6 @@
 <file>
       <absolute_file_name>/app/backend/app/models/sales/master_aliases.py</absolute_file_name>
-      <content"># Alias imports to standardize master model naming for Sales module
+# Alias imports to standardize master model naming for Sales module
 
 # Account Types
 from app.models.masters.master_account_types import MasterAccountTypes as AccountType
