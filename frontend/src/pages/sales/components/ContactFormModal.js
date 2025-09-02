@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../../components/ui/Dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../../components/ui/dialog';
 import { Button } from '../../../components/ui/Button';
 import { X, Plus, Trash2 } from 'lucide-react';
 
