@@ -148,7 +148,7 @@ class MasterDataService {
   }
 
   async createBusinessVertical(data) {
-    return this.create('v1/business_verticals', data);
+    return this.create('v1/business_verticals/', data);
   }
 
   async updateBusinessVertical(id, data) {
