@@ -144,8 +144,14 @@ const CompanyFormModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateCurrentStep()) {
-      onSubmit(formData);
+    // Only submit on the last step
+    if (currentStep === steps.length - 1) {
+      if (validateCurrentStep()) {
+        onSubmit(formData);
+      }
+    } else {
+      // For other steps, just move to next step
+      handleNext();
     }
   };
 
