@@ -176,7 +176,7 @@ const CompanyFormModal = ({
           </Button>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-6">
           {/* Progress Bar */}
           <div className="w-full py-4">
             <div className="flex items-center justify-between mb-4">
