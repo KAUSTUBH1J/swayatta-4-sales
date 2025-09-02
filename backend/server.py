@@ -23,8 +23,73 @@ db = client[os.environ['DB_NAME']]
 # Create the main app without a prefix
 app = FastAPI()
 
+# Security
+security = HTTPBearer()
+
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
+
+# Authentication data (for testing)
+VALID_USERS = {
+    "admin": {
+        "password": "admin123",
+        "user_data": {
+            "id": 1,
+            "username": "admin",
+            "full_name": "Admin User",
+            "email": "admin@example.com",
+            "role_id": 1,
+            "assigned_modules": [1, 2],  # User Management + Sales
+            "menus": [
+                {
+                    "id": 1,
+                    "module_id": 1,
+                    "name": "USER MANAGEMENT",
+                    "is_sidebar": True,
+                    "icon": "fas fa-cogs",
+                    "order_index": 1,
+                    "permissions": ["view", "create", "edit", "delete"],
+                    "children": [
+                        {
+                            "id": 2,
+                            "name": "Users",
+                            "path": "/users",
+                            "permissions": ["view", "create", "edit", "delete"],
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "id": 100,
+                    "module_id": 2,
+                    "name": "SALES",
+                    "is_sidebar": True,
+                    "icon": "fas fa-chart-line",
+                    "order_index": 2,
+                    "permissions": ["view", "create", "edit", "delete"],
+                    "children": [
+                        {
+                            "id": 101,
+                            "name": "Companies",
+                            "path": "/sales/companies",
+                            "permissions": ["view", "create", "edit", "delete"],
+                            "children": []
+                        },
+                        {
+                            "id": 102,
+                            "name": "Contacts",
+                            "path": "/sales/contacts",
+                            "permissions": ["view", "create", "edit", "delete"],
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
+
+ACTIVE_TOKENS = {}  # Token storage
 
 
 # Define Models
