@@ -551,7 +551,9 @@ const CompanyFormModal = ({
                     size="sm"
                     onClick={() => handleArrayAdd('documents', { 
                       file_name: '', 
-                      description: '' 
+                      description: '',
+                      document_type: '',
+                      file: null
                     })}
                   >
                     <Plus className="h-4 w-4 mr-2" />
