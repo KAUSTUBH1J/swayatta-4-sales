@@ -28,6 +28,9 @@ from app.api.v1.endpoints.masters import master_state
 from app.api.v1.endpoints.masters import master_cities
 from app.api.v1.endpoints.masters import master_document_type
 from app.api.v1.endpoints.masters import master_currency
+# Sales endpoints
+from app.api.v1.endpoints.sales import company
+from app.api.v1.endpoints.sales import contact
 
 
 
