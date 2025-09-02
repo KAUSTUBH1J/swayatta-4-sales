@@ -134,6 +134,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ TESTED: Authentication endpoints fully functional. Login with admin/admin123 returns access_token and user data with menus including Sales module (module_id=2). Token verification endpoint works correctly and returns user data with proper menu structure."
+      - working: true
+        agent: "testing"
+        comment: "✅ RE-VERIFIED (2025-09-02): Authentication flow confirmed working perfectly. POST /api/v1/auth/token with admin/admin123 returns Bearer token and user data with Sales module menus. GET /api/v1/auth/verify-token/ validates tokens correctly. All authentication working seamlessly as per review request."
 
   - task: "Sales API endpoints (Companies, Contacts)"
     implemented: true
