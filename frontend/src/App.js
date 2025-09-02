@@ -266,6 +266,25 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      {/* Sales Routes */}
+      <Route
+        path="/sales/companies"
+        element={
+          <ProtectedRoute>
+            <CompaniesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/sales/contacts"
+        element={
+          <ProtectedRoute>
+            <ContactsPage />
+          </ProtectedRoute>
+        }
+      />
+
       {/* Default redirect */}
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
