@@ -94,7 +94,7 @@ def get_contacts_by_company(
         return handle_exception(e, "Error fetching contacts", getattr(e, "status_code", 500))
 
 #---------- Fetch Single Contact by ID ----------
-@router.get("/{contact_id}", response_model=ContactSchemas.SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "view")], status_code=status.HTTP_200_OK)
+@router.get("/{contact_id}", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "view")], status_code=status.HTTP_200_OK)
 def fetch_contact(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     contact_id: int,
