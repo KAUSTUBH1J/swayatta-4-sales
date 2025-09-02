@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.database.db import get_db
 from app.core import auth_service as AuthService
 from app.schemas.sales import company as CompanySchemas
+from app.schemas.sales.DefaultResponse import SalesResponse
 from app.utils.responses import Response
 from app.services.sales import company_service as CompanyService
 from app.core.permissions import check_permission
