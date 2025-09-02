@@ -243,10 +243,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Backend API endpoints verification"
-    - "Sales module navigation and data loading"
-    - "Multi-step progress bars implementation"
-    - "Frontend Contact form designations dropdown fix"
+    - "Fix sidebar menu expansion for Sales submenu"
+    - "Fix multi-step form Next button submission bug"
+    - "Add file upload functionality to Document section"
+    - "Resolve User Management API 307 redirect issues"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
