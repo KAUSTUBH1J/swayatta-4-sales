@@ -249,7 +249,6 @@ test_plan:
     - "Fix sidebar menu expansion for Sales submenu"
     - "Fix multi-step form Next button submission bug"
     - "Add file upload functionality to Document section"
-    - "Resolve User Management API 307 redirect issues"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
