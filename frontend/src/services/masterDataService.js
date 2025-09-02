@@ -114,7 +114,7 @@ class MasterDataService {
   }
 
   async createDepartment(data) {
-    return this.create('v1/departments', data);
+    return this.create('v1/departments/', data);
   }
 
   async updateDepartment(id, data) {
