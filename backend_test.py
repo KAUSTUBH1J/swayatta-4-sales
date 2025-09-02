@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Backend API Testing Script
-Tests the current backend implementation to understand what's available
+Backend API Testing Script for Sales Module
+Tests the Sales module backend APIs as per review request
 """
 
 import requests
@@ -13,17 +13,19 @@ class BackendTester:
     def __init__(self):
         # Use the public endpoint from frontend .env
         self.base_url = "https://erm-sales-portal.preview.emergentagent.com"
+        self.api_base = f"{self.base_url}/api"
         self.tests_run = 0
         self.tests_passed = 0
         self.token = None
+        self.failed_tests = []
 
-    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None):
+    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None, use_form_data=False):
         """Run a single API test"""
         url = f"{self.base_url}{endpoint}"
         if not headers:
-            headers = {'Content-Type': 'application/json'}
+            headers = {}
         
-        if self.token:
+        if self.token and not use_form_data:
             headers['Authorization'] = f'Bearer {self.token}'
 
         self.tests_run += 1
@@ -32,16 +34,28 @@ class BackendTester:
         
         try:
             if method == 'GET':
+                if self.token:
+                    headers['Authorization'] = f'Bearer {self.token}'
                 response = requests.get(url, headers=headers, timeout=10)
             elif method == 'POST':
-                response = requests.post(url, json=data, headers=headers, timeout=10)
-            elif method == 'PUT':
-                response = requests.put(url, json=data, headers=headers, timeout=10)
-            elif method == 'DELETE':
-                response = requests.delete(url, headers=headers, timeout=10)
+                if use_form_data:
+                    # For form data (login endpoint)
+                    response = requests.post(url, data=data, headers=headers, timeout=10)
+                else:
+                    headers['Content-Type'] = 'application/json'
+                    if self.token:
+                        headers['Authorization'] = f'Bearer {self.token}'
+                    response = requests.post(url, json=data, headers=headers, timeout=10)
 
             print(f"Status Code: {response.status_code}")
-            print(f"Response: {response.text[:500]}...")
+            
+            # Handle different response types
+            try:
+                response_data = response.json()
+                print(f"Response: {json.dumps(response_data, indent=2)[:500]}...")
+            except:
+                print(f"Response: {response.text[:500]}...")
+                response_data = {}
             
             success = response.status_code == expected_status
             if success:
@@ -49,17 +63,30 @@ class BackendTester:
                 print(f"✅ Passed - Expected {expected_status}, got {response.status_code}")
             else:
                 print(f"❌ Failed - Expected {expected_status}, got {response.status_code}")
+                self.failed_tests.append({
+                    'name': name,
+                    'expected': expected_status,
+                    'actual': response.status_code,
+                    'url': url
+                })
 
-            return success, response.json() if response.text and response.status_code < 500 else {}
+            return success, response_data
 
         except requests.exceptions.RequestException as e:
             print(f"❌ Failed - Network Error: {str(e)}")
-            return False, {}
-        except json.JSONDecodeError as e:
-            print(f"❌ Failed - JSON Decode Error: {str(e)}")
+            self.failed_tests.append({
+                'name': name,
+                'error': f"Network Error: {str(e)}",
+                'url': url
+            })
             return False, {}
         except Exception as e:
             print(f"❌ Failed - Error: {str(e)}")
+            self.failed_tests.append({
+                'name': name,
+                'error': f"Error: {str(e)}",
+                'url': url
+            })
             return False, {}
 
     def test_basic_endpoints(self):
