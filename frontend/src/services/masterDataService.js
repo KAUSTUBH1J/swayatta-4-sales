@@ -131,7 +131,7 @@ class MasterDataService {
   }
 
   async createDesignation(data) {
-    return this.create('v1/designations', data);
+    return this.create('v1/designations/', data);
   }
 
   async updateDesignation(id, data) {
