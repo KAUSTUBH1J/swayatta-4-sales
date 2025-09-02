@@ -40,8 +40,7 @@ def create_contact(
     except Exception as e:
         return handle_exception(e, "Contact creation failed", getattr(e, "status_code", 400))
 
-#---------- List Contacts ----------
-@router.get("/", response_model=ContactSchemas.SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "view")], status_code=status.HTTP_200_OK)
+@router.get("/", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "view")], status_code=status.HTTP_200_OK)
 def list_contacts(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     db: Session = Depends(get_db),
