@@ -32,8 +32,6 @@ from app.api.v1.endpoints.masters import master_currency
 from app.api.v1.endpoints.sales import company
 from app.api.v1.endpoints.sales import contact
 
-
-
 from app.core import auth
 
 api_router = APIRouter(prefix="/api/v1")
