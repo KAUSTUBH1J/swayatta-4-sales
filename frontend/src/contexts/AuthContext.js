@@ -54,25 +54,32 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
+      console.log('AuthContext: Starting login process'); // Debug
       const response = await authService.login(username, password);
+      console.log('AuthContext: Login service response:', response); // Debug
 
       // Save access token already handled in AuthService.login()
 
       // After successful login, verify token to get permissions
+      console.log('AuthContext: Verifying token'); // Debug
       const verifyResponse = await authService.verifyToken();
+      console.log('AuthContext: Verify response:', verifyResponse); // Debug
 
       if (verifyResponse.status_code === 200) {
         const userData = verifyResponse.data.user;
         const menus = userData.menus || [];
 
+        console.log('AuthContext: Setting user data:', userData); // Debug
         setUser(userData); 
         setUserMenus(menus);
         setUserPermissions(extractPermissionsByMenu(menus));
         setIsAuthenticated(true);
+        console.log('AuthContext: Login successful!'); // Debug
       }
 
       return response;
     } catch (error) {
+      console.error('AuthContext: Login error:', error); // Debug
       throw error;
     }
   };
