@@ -165,7 +165,7 @@ class MasterDataService {
   }
 
   async createRegion(data) {
-    return this.create('v1/regions', data);
+    return this.create('v1/regions/', data);
   }
 
   async updateRegion(id, data) {
