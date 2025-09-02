@@ -9,13 +9,13 @@ class Contact(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     
     # General Info
-    title_id = Column(Integer, ForeignKey("mst_titles.id"))
+    title_id = Column(Integer)  # Remove FK for now
     first_name = Column(String(100), nullable=False)
     middle_name = Column(String(100))
     last_name = Column(String(100))
     dob = Column(Date)
     company_id = Column(Integer, ForeignKey("tbl_companies.id"), nullable=False)
-    designation_id = Column(Integer, ForeignKey("mst_designations.id"))
+    designation_id = Column(Integer)  # Remove FK for now
     email = Column(String(150))
     fax = Column(String(20))
     primary_no = Column(String(15))
@@ -32,20 +32,16 @@ class Contact(Base):
     # Standard fields
     is_active = Column(Boolean, server_default=text("true"))
     is_deleted = Column(Boolean, server_default=text("false"))
-    created_by = Column(Integer, ForeignKey("tbl_users.id", ondelete="SET NULL"), nullable=True)
-    updated_by = Column(Integer, ForeignKey("tbl_users.id", ondelete="SET NULL"), nullable=True)
+    created_by = Column(Integer, nullable=True)  # Remove FK for now
+    updated_by = Column(Integer, nullable=True)  # Remove FK for now
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
-    title = relationship("Title", lazy="joined", foreign_keys=[title_id])
     company = relationship("Company", back_populates="contacts")
-    designation = relationship("Designation", lazy="joined", foreign_keys=[designation_id])
-    created_user = relationship("User", foreign_keys=[created_by], lazy="joined", post_update=True)
-    updated_user = relationship("User", foreign_keys=[updated_by], lazy="joined", post_update=True)
     
     # One-to-many relationships
-    addresses = relationship("ContactAddress", back_populates="contact", cascade="all, delete-orphan", lazy="select")
+    addresses = relationship("ContactAddress", back_populates="contact", cascade="all, delete-orphan")
 
 
 class ContactAddress(Base):
@@ -53,26 +49,20 @@ class ContactAddress(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     contact_id = Column(Integer, ForeignKey("tbl_contacts.id"), nullable=False)
-    address_type_id = Column(Integer, ForeignKey("mst_address_types.id"))
+    address_type_id = Column(Integer)  # Remove FK for now
     address = Column(Text)
-    country_id = Column(Integer, ForeignKey("mst_countries.id"))
-    state_id = Column(Integer, ForeignKey("mst_states.id"))
-    city_id = Column(Integer, ForeignKey("mst_cities.id"))
+    country_id = Column(Integer)  # Remove FK for now
+    state_id = Column(Integer)  # Remove FK for now
+    city_id = Column(Integer)  # Remove FK for now
     zip_code = Column(String(10))
     
     # Standard fields
     is_active = Column(Boolean, server_default=text("true"))
     is_deleted = Column(Boolean, server_default=text("false"))
-    created_by = Column(Integer, ForeignKey("tbl_users.id", ondelete="SET NULL"), nullable=True)
-    updated_by = Column(Integer, ForeignKey("tbl_users.id", ondelete="SET NULL"), nullable=True)
+    created_by = Column(Integer, nullable=True)  # Remove FK for now
+    updated_by = Column(Integer, nullable=True)  # Remove FK for now
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
     contact = relationship("Contact", back_populates="addresses")
-    address_type = relationship("AddressType", lazy="joined", foreign_keys=[address_type_id])
-    country = relationship("Country", lazy="joined", foreign_keys=[country_id])
-    state = relationship("State", lazy="joined", foreign_keys=[state_id])
-    city = relationship("City", lazy="joined", foreign_keys=[city_id])
-    created_user = relationship("User", foreign_keys=[created_by], lazy="joined", post_update=True)
-    updated_user = relationship("User", foreign_keys=[updated_by], lazy="joined", post_update=True)
