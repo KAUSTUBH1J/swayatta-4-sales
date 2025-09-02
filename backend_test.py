@@ -12,7 +12,7 @@ from datetime import datetime
 class BackendTester:
     def __init__(self):
         # Use the public endpoint from frontend .env
-        self.base_url = "https://crm-portal-4.preview.emergentagent.com"
+        self.base_url = "https://erm-sales-portal.preview.emergentagent.com"
         self.tests_run = 0
         self.tests_passed = 0
         self.token = None
@@ -177,7 +177,7 @@ class BackendTester:
 def main():
     """Main test function"""
     print("Starting Backend API Tests...")
-    print(f"Testing against: https://crm-portal-4.preview.emergentagent.com")
+    print(f"Testing against: https://erm-sales-portal.preview.emergentagent.com")
     
     tester = BackendTester()
     
