@@ -21,11 +21,12 @@ const LoginPage = () => {
     setError('');
 
     try {
-      await login(username, password);
-      // alert("hello")
-      console.log("hello")
-      navigate('/usres');
+      console.log('Attempting login with:', username); // Debug log
+      const result = await login(username, password);
+      console.log('Login result:', result); // Debug log
+      navigate('/dashboard'); // Fixed typo and redirect to dashboard
     } catch (error) {
+      console.error('Login error:', error); // Debug log
       setError(error.detail || error.message || 'Login failed');
     } finally {
       setLoading(false);
