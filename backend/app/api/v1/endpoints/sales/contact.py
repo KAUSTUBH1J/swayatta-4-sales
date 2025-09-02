@@ -134,7 +134,7 @@ def update_contact_details(
         return handle_exception(e, "Error updating contact", getattr(e, "status_code", 500))
 
 #---------- Delete Contact ----------
-@router.delete("/{contact_id}", response_model=ContactSchemas.SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "delete")], status_code=status.HTTP_200_OK)
+@router.delete("/{contact_id}", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/contacts", "delete")], status_code=status.HTTP_200_OK)
 def delete_contact_details(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     contact_id: int,
