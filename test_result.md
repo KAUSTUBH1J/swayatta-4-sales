@@ -131,6 +131,9 @@ backend:
       - working: true
         agent: "main"
         comment: "Authentication working correctly - login successful with admin/admin123, dashboard loads with menu structure"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Authentication endpoints fully functional. Login with admin/admin123 returns access_token and user data with menus including Sales module (module_id=2). Token verification endpoint works correctly and returns user data with proper menu structure."
 
   - task: "Sales API endpoints (Companies, Contacts)"
     implemented: true
