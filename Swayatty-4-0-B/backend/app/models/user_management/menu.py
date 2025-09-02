@@ -1,0 +1,29 @@
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, text
+from sqlalchemy.orm import relationship
+from datetime import datetime
+from app.database.db import Base
+
+class Menu(Base):
+    __tablename__ = 'mst_menus'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(100), nullable=False)
+    path = Column(String(255))
+    parent_id = Column(Integer, ForeignKey('mst_menus.id'), nullable=True)
+    module_id = Column(Integer, ForeignKey('mst_modules.id'), nullable=True)
+    order_index = Column(Integer, default=0)
+    icon = Column(String(150))
+    is_sidebar = Column(Boolean, default=True)
+    is_active = Column(Boolean, server_default=text("true"))
+    is_deleted = Column(Boolean, server_default=text("false"))
+
+    created_by = Column(Integer, ForeignKey('tbl_users.id', ondelete="SET NULL"), nullable=True)
+    updated_by = Column(Integer, ForeignKey('tbl_users.id', ondelete="SET NULL"), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    parent_menu = relationship("Menu", remote_side=[id], back_populates="child_menus", lazy="joined")
+    child_menus = relationship("Menu", back_populates="parent_menu", cascade="all, delete-orphan", lazy="select")
+    module = relationship("Module", lazy="joined", foreign_keys=[module_id])
+    created_user = relationship("User", foreign_keys=[created_by], lazy="joined", post_update=True)
+    updated_user = relationship("User", foreign_keys=[updated_by], lazy="joined", post_update=True)
