@@ -133,7 +133,7 @@ def update_company_details(
         return handle_exception(e, "Error updating company", getattr(e, "status_code", 500))
 
 #---------- Delete Company ----------
-@router.delete("/{company_id}", response_model=CompanySchemas.SalesResponse, dependencies=[check_permission(2, "/sales/companies", "delete")], status_code=status.HTTP_200_OK)
+@router.delete("/{company_id}", response_model=SalesResponse, dependencies=[check_permission(2, "/sales/companies", "delete")], status_code=status.HTTP_200_OK)
 def delete_company_details(
     current_user: Annotated[AuthService.User, Depends(AuthService.get_current_user)],
     company_id: int,
