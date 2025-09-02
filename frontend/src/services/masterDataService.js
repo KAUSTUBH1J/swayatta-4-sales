@@ -127,7 +127,7 @@ class MasterDataService {
 
   // Designations
   async getDesignations(params) {
-    return this.getList('v1/designations', params);
+    return this.getList('v1/designations/', params);
   }
 
   async createDesignation(data) {
